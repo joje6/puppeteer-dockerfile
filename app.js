@@ -16,6 +16,7 @@ const fs = require('fs');
   });
 
   const page = await browser.newPage();
+  console.log(process.env.PAGE_GOTO);
   await page.goto(process.env.PAGE_GOTO);
 
   const screenshotPath = 'screenshot.png';
