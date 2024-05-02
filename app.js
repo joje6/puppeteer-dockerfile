@@ -16,8 +16,8 @@ const fs = require('fs');
   });
 
   const page = await browser.newPage();
-  console.log(process.env.PAGE_GOTO);
-  await page.goto(`https://cloudtype.io`);
+  // console.log(process.env.PAGE_GOTO);
+  await page.goto('https://naver.com');
 
   const screenshotPath = 'screenshot.png';
   await page.screenshot({ path: screenshotPath });
@@ -26,6 +26,8 @@ const fs = require('fs');
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_KEY
   });
+
+  await browser.close();
 
   const uploadParams = {
     Bucket: process.env.AWS_S3_BUCKET,
@@ -43,5 +45,4 @@ const fs = require('fs');
 
   await new Promise(resolve => setTimeout(resolve, 600000)); 
 
-  await browser.close();
 })();
