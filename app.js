@@ -16,7 +16,12 @@ const fs = require('fs');
   });
 
   const page = await browser.newPage();
-  await page.goto(process.env.PAGE_GOTO, { waitUntil: 'domcontentloaded' });
+  await page.goto(
+    process.env.PAGE_GOTO, 
+    { 
+      waitUntil: 'domcontentloaded',
+      timeout: 120000
+    });
 
   await page.setViewport({width: 1920, height: 1024});
 
