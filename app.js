@@ -16,7 +16,7 @@ const fs = require('fs');
   });
 
   const page = await browser.newPage();
-  await page.goto(process.env.PAGE_GOTO);
+  await page.goto('https://cloudtype.io');
 
   const screenshotPath = 'screenshot.png';
   await page.screenshot({ path: screenshotPath });
