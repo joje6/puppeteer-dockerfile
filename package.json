@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1611.0",
     "puppeteer": "^22.7.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }
