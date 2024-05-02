@@ -16,8 +16,7 @@ const fs = require('fs');
   });
 
   const page = await browser.newPage();
-  // console.log(process.env.PAGE_GOTO);
-  await page.goto('https://naver.com');
+  await page.goto(process.env.PAGE_GOTO);
 
   const screenshotPath = 'screenshot.png';
   await page.screenshot({ path: screenshotPath });
