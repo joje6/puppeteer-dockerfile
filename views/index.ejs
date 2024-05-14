@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 페이지 캡처하기</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <form id="pageUrlForm" action="/" method="post" onsubmit="return validateForm()">
+            <div class="input-container">
+                <label for="pageUrl">캡처 대상 페이지 URL</label><br>
+                <input type="text" id="pageUrl" name="pageUrl" value="<%= pageUrl %>"><br>
+            </div>
+            <button type="submit" id="captureButton">
+                캡처하기
+            </button>
+            <i id="captureIcon" class="fa"></i>
+        </form>
+    </div>
+
+
+    <script>
+
+        function validateForm() {
+            let pageUrl = document.getElementById('pageUrl').value;
+            if (pageUrl.trim() === '') {
+                alert('주소를 입력하지 않았습니다.');
+                document.getElementById('captureButton').textContent = '캡처하기';
+                return false;
+            } else {
+                document.getElementById('captureIcon').classList.add('fa-spinner');
+                document.getElementById('captureIcon').classList.add('fa-spin');
+                document.getElementById('captureIcon').style.display = 'inline-block';
+                document.getElementById('captureButton').disabled = true;
+                document.getElementById('captureButton').textContent = '캡처 중...';
+            }
+            return true;
+        }
+
+    </script>
+</body>
+
+</html>
