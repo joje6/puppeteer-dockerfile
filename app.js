@@ -47,7 +47,7 @@ app.post("/", async (req, res) => {
   });
 
   const page = await browser.newPage();
-  await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 120000 });
+  await page.goto(pageUrl, { waitUntil: "networkidle0" });
   await page.setViewport({ width: 1920, height: 1024 });
 
   const screenshotPath = "screenshot.png";
