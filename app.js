@@ -1,7 +1,4 @@
-require("dotenv").config();
-
 const puppeteer = require("puppeteer");
-const AWS = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
 const express = require("express");
 
@@ -10,11 +7,6 @@ const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-const awsAccessKey = process.env.AWS_ACCESS_KEY || "";
-const awsSecretKey = process.env.AWS_SECRET_KEY || "";
-const awsS3EndpointUrl = process.env.AWS_S3_ENDPOINT_URL || "";
-const awsS3Bucket = process.env.AWS_S3_BUCKET || "";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,7 +24,7 @@ app.get("/", (req, res) => {
   res.render("index", { pageUrl: "" });
 });
 
-app.post("/", async (req, res) => {
+app.get("/test", async (req, res) => {
   const { pageUrl } = req.body;
 
   const browser = await puppeteer.launch({
@@ -55,28 +47,7 @@ app.post("/", async (req, res) => {
 
   await browser.close();
 
-  const s3 = new AWS.S3({
-    accessKeyId: awsAccessKey,
-    secretAccessKey: awsSecretKey,
-    endpoint: awsS3EndpointUrl,
-  });
-
-  const awsS3Filename = generateRandomFilename();
-
-  const uploadParams = {
-    Bucket: awsS3Bucket,
-    Key: awsS3Filename,
-    Body: fs.createReadStream(screenshotPath),
-  };
-
-  s3.upload(uploadParams, function (err, data) {
-    if (err) {
-      console.error("에러 발생:", err);
-      res.status(500).send("파일 업로드 중에 오류가 발생했습니다.");
-    } else {
-      res.send(`스크린샷이 업로드되었습니다.`);
-    }
-  });
+  res.send({src:screenshotPath});
 });
 
 function generateRandomFilename() {
